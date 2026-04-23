@@ -940,6 +940,10 @@ function togglePwdVisibility() {
 var _originalOpenCert = openCertModal;
 openCertModal = function() { requirePassword(_originalOpenCert); };
 
+// Override openResumeModal to go through password gate
+var _originalOpenResume = openResumeModal;
+openResumeModal = function() { requirePassword(_originalOpenResume); };
+
 </script>
 </body>
 </html>
