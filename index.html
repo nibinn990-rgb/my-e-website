@@ -590,30 +590,33 @@ footer a:hover{color:#fff}
         </div>
       </div>
       <div class="contact-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" placeholder="John"/>
+        <form action="https://formspree.io/f/xrerrbry" method="POST" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="first_name" placeholder="John" required/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="last_name" placeholder="Doe" required/>
+            </div>
           </div>
           <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" placeholder="Doe"/>
+            <label>Email</label>
+            <input type="email" name="email" placeholder="john@example.com" required/>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="john@example.com"/>
-        </div>
-        <div class="form-group">
-          <label>Subject</label>
-          <input type="text" placeholder="Job Opportunity / Collaboration"/>
-        </div>
-        <div class="form-group">
-          <label>Message</label>
-          <textarea placeholder="Write your message here..."></textarea>
-        </div>
-        <button class="btn-submit" onclick="handleSubmit()">Send Message</button>
-        <div id="form-msg" style="margin-top:1rem;font-size:0.85rem;color:#22c55e;display:none;text-align:center">✔ Message sent successfully!</div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" name="subject" placeholder="Job Opportunity / Collaboration"/>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message</button>
+          <div id="form-msg" style="margin-top:1rem;font-size:0.85rem;color:#22c55e;display:none;text-align:center">✔ Message sent! I'll get back to you soon.</div>
+          <div id="form-err" style="margin-top:1rem;font-size:0.85rem;color:#ef4444;display:none;text-align:center">✘ Something went wrong. Please try again.</div>
+        </form>
       </div>
     </div>
   </div>
@@ -656,11 +659,34 @@ photoEl.addEventListener('load',()=>{
   }
 });
 
-// Contact form mock submit
-function handleSubmit(){
+// Contact form
+async function handleSubmit(e){
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('.btn-submit');
   const msg = document.getElementById('form-msg');
-  msg.style.display = 'block';
-  setTimeout(()=>{ msg.style.display='none'; }, 4000);
+  const err = document.getElementById('form-err');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if(res.ok){
+      msg.style.display = 'block';
+      err.style.display = 'none';
+      form.reset();
+      setTimeout(()=>{ msg.style.display='none'; }, 5000);
+    } else {
+      err.style.display = 'block';
+    }
+  } catch(e) {
+    err.style.display = 'block';
+  }
+  btn.textContent = 'Send Message';
+  btn.disabled = false;
 }
 
 // CATEGORY TOGGLE
