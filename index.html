@@ -191,6 +191,26 @@ footer a:hover{color:#fff}
   .hero-stats{gap:1.5rem}
 }
 
+
+/* PASSWORD MODAL */
+.pwd-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:4000;align-items:center;justify-content:center}
+.pwd-overlay.active{display:flex}
+.pwd-box{background:#fff;border-radius:20px;padding:2.5rem 2rem;max-width:380px;width:92%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative}
+.pwd-icon{font-size:2.8rem;margin-bottom:0.75rem}
+.pwd-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--primary);margin-bottom:0.4rem}
+.pwd-subtitle{font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem}
+.pwd-input-wrap{position:relative;margin-bottom:1rem}
+.pwd-input{width:100%;border:2px solid var(--border);border-radius:10px;padding:0.75rem 2.8rem 0.75rem 1rem;font-family:'Poppins',sans-serif;font-size:0.9rem;color:var(--text);outline:none;transition:border .2s;box-sizing:border-box}
+.pwd-input:focus{border-color:var(--accent)}
+.pwd-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:var(--muted)}
+.pwd-btn{width:100%;background:var(--accent);color:#fff;border:none;padding:0.8rem;border-radius:50px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all .2s;box-shadow:0 4px 15px rgba(46,126,237,0.3)}
+.pwd-btn:hover{background:#1a6fd4;transform:translateY(-2px)}
+.pwd-error{color:#ef4444;font-size:0.8rem;margin-top:0.5rem;display:none;font-weight:500}
+.pwd-cancel{margin-top:0.75rem;font-size:0.8rem;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'Poppins',sans-serif}
+.pwd-cancel:hover{color:var(--accent)}
+.pwd-shake{animation:pwdShake 0.4s ease}
+@keyframes pwdShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+
 /* CERT MODAL */
 .cert-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:3000;align-items:center;justify-content:center}
 .cert-modal-overlay.active{display:flex}
@@ -656,6 +676,23 @@ footer a:hover{color:#fff}
   </div>
 </div>
 
+<!-- PASSWORD GATE MODAL -->
+<div class="pwd-overlay" id="pwdOverlay">
+  <div class="pwd-box" id="pwdBox">
+    <div class="pwd-icon">🔐</div>
+    <div class="pwd-title">Protected Content</div>
+    <div class="pwd-subtitle">Enter the password to view this certificate</div>
+    <div class="pwd-input-wrap">
+      <input class="pwd-input" type="password" id="pwdInput" placeholder="Enter password..." onkeydown="if(event.key==='Enter') checkPassword()"/>
+      <button class="pwd-toggle" onclick="togglePwdVisibility()" id="pwdToggleBtn">👁</button>
+    </div>
+    <div class="pwd-error" id="pwdError">❌ Incorrect password. Please try again.</div>
+    <button class="pwd-btn" onclick="checkPassword()">Unlock →</button>
+    <br/>
+    <button class="pwd-cancel" onclick="closePwdModal()">Cancel</button>
+  </div>
+</div>
+
 <!-- CERT MODAL -->
 <div class="cert-modal-overlay" id="certModalOverlay" onclick="closeCertModal()">
   <div class="cert-modal-box" onclick="event.stopPropagation()">
@@ -853,6 +890,56 @@ function closeCertModal(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape') closeCertModal();});
+
+// PASSWORD GATE
+var _pendingAction = null;
+
+function requirePassword(action) {
+  _pendingAction = action;
+  document.getElementById('pwdInput').value = '';
+  document.getElementById('pwdError').style.display = 'none';
+  document.getElementById('pwdOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ document.getElementById('pwdInput').focus(); }, 100);
+}
+
+function checkPassword() {
+  var val = document.getElementById('pwdInput').value;
+  // Simple obfuscated check — split to avoid plain-text in source
+  var p = ['Eclipse', '123', '*'].join('');
+  if (val === p) {
+    document.getElementById('pwdOverlay').classList.remove('active');
+    document.getElementById('pwdError').style.display = 'none';
+    if (_pendingAction) { _pendingAction(); _pendingAction = null; }
+  } else {
+    var err = document.getElementById('pwdError');
+    err.style.display = 'block';
+    var box = document.getElementById('pwdBox');
+    box.classList.remove('pwd-shake');
+    void box.offsetWidth;
+    box.classList.add('pwd-shake');
+    document.getElementById('pwdInput').value = '';
+    document.getElementById('pwdInput').focus();
+  }
+}
+
+function closePwdModal() {
+  document.getElementById('pwdOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  _pendingAction = null;
+}
+
+function togglePwdVisibility() {
+  var inp = document.getElementById('pwdInput');
+  var btn = document.getElementById('pwdToggleBtn');
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+  else { inp.type = 'password'; btn.textContent = '👁'; }
+}
+
+// Override openCertModal to go through password gate
+var _originalOpenCert = openCertModal;
+openCertModal = function() { requirePassword(_originalOpenCert); };
+
 </script>
 </body>
 </html>
