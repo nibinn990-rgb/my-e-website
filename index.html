@@ -435,17 +435,19 @@ footer a:hover{color:#fff}
     </div>
     <div class="edu-grid">
 
-      <div class="edu-card">
+      <div class="edu-card clickable" onclick="openCcnpModal()">
         <div class="edu-icon">📜</div>
         <div class="edu-year">Certification</div>
         <div class="edu-degree">CCNP & CCNA</div>
         <div class="edu-sub">Switching & Routing</div>
+        <div class="cert-badge">📄 View Certificate</div>
       </div>
-      <div class="edu-card">
+      <div class="edu-card clickable" onclick="openMcsaModal()">
         <div class="edu-icon">🏅</div>
         <div class="edu-year">Certification</div>
         <div class="edu-degree">MCSA</div>
         <div class="edu-sub">Microsoft Certified Solutions Associate</div>
+        <div class="cert-badge">📄 View Certificate</div>
       </div>
       <div class="edu-card clickable" onclick="openCertModal()">
         <div class="edu-icon">🔐</div>
@@ -676,6 +678,32 @@ footer a:hover{color:#fff}
   </div>
 </div>
 
+<!-- CCNP MODAL -->
+<div class="cert-modal-overlay" id="ccnpModalOverlay" onclick="closeCcnpModal()">
+  <div class="cert-modal-box" onclick="event.stopPropagation()">
+    <button class="cert-modal-close" onclick="closeCcnpModal()">✕</button>
+    <div style="padding:2rem 1rem;text-align:center">
+      <div style="font-size:3rem;margin-bottom:1rem">📜</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--primary);margin-bottom:0.5rem">CCNP & CCNA</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem">Switching & Routing</div>
+      <div style="background:var(--accent2);border-radius:12px;padding:1.25rem;color:var(--accent);font-size:0.9rem;font-weight:600">🔄 Certificate will be added soon</div>
+    </div>
+  </div>
+</div>
+
+<!-- MCSA MODAL -->
+<div class="cert-modal-overlay" id="mcsaModalOverlay" onclick="closeMcsaModal()">
+  <div class="cert-modal-box" onclick="event.stopPropagation()">
+    <button class="cert-modal-close" onclick="closeMcsaModal()">✕</button>
+    <div style="padding:2rem 1rem;text-align:center">
+      <div style="font-size:3rem;margin-bottom:1rem">🏅</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--primary);margin-bottom:0.5rem">MCSA</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem">Microsoft Certified Solutions Associate</div>
+      <div style="background:var(--accent2);border-radius:12px;padding:1.25rem;color:var(--accent);font-size:0.9rem;font-weight:600">🔄 Certificate will be added soon</div>
+    </div>
+  </div>
+</div>
+
 <!-- PASSWORD GATE MODAL -->
 <div class="pwd-overlay" id="pwdOverlay">
   <div class="pwd-box" id="pwdBox">
@@ -891,6 +919,25 @@ function closeCertModal(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape') closeCertModal();});
 
+
+function openCcnpModal(){
+  document.getElementById('ccnpModalOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeCcnpModal(){
+  document.getElementById('ccnpModalOverlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+
+function openMcsaModal(){
+  document.getElementById('mcsaModalOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeMcsaModal(){
+  document.getElementById('mcsaModalOverlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+
 // PASSWORD GATE
 var _pendingAction = null;
 
@@ -943,6 +990,14 @@ openCertModal = function() { requirePassword(_originalOpenCert); };
 // Override openResumeModal to go through password gate
 var _originalOpenResume = openResumeModal;
 openResumeModal = function() { requirePassword(_originalOpenResume); };
+
+// Override CCNP modal to go through password gate
+var _originalOpenCcnp = openCcnpModal;
+openCcnpModal = function() { requirePassword(_originalOpenCcnp); };
+
+// Override MCSA modal to go through password gate
+var _originalOpenMcsa = openMcsaModal;
+openMcsaModal = function() { requirePassword(_originalOpenMcsa); };
 
 </script>
 </body>
