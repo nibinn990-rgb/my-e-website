@@ -244,6 +244,10 @@ footer a:hover{color:#fff}
 .cert-modal-close:hover{background:var(--accent2);color:var(--accent)}
 .edu-card.clickable{cursor:pointer;transition:all .2s}
 .edu-card.clickable:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(46,126,237,0.18);border-color:var(--accent)}
+.cert-upload-btn{background:var(--accent);color:#fff;border:none;padding:0.6rem 1.4rem;border-radius:50px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Poppins',sans-serif}
+.cert-upload-btn:hover{background:#1a6fd4;transform:translateY(-2px)}
+.cert-remove-btn{background:#fee2e2;color:#dc2626;border:none;padding:0.6rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Poppins',sans-serif}
+.cert-remove-btn:hover{background:#fecaca}
 .cert-badge{display:inline-block;margin-top:0.6rem;font-size:0.72rem;background:var(--accent2);color:var(--accent);border-radius:50px;padding:3px 12px;font-weight:600;letter-spacing:0.5px}
 </style>
 <!-- Structured Data for Google -->
@@ -262,7 +266,7 @@ footer a:hover{color:#fff}
     "addressLocality": "Doha",
     "addressCountry": "Qatar"
   },
-  "email": "tech.e1@dns.com.qa",
+  "email": "nibinn990@gmail.com",
   "url": "https://nibinn990-rgb.github.io/my-e-website",
   "sameAs": [
     "https://www.linkedin.com/in/nibin-nishad-139833263"
@@ -336,8 +340,8 @@ footer a:hover{color:#fff}
         <p>Hands-on experience in firewall policy configuration, network security implementation, VPN connectivity, and troubleshooting across enterprise environments. Capable of supporting network infrastructure, monitoring performance, and ensuring secure and reliable connectivity.</p>
         <div class="about-info">
           <div class="info-item"><div class="info-label">Location</div><div class="info-value">Doha, Qatar</div></div>
-          <div class="info-item"><div class="info-label">Phone</div><div class="info-value">+974 7002 9698</div></div>
-          <div class="info-item"><div class="info-label">Email</div><div class="info-value" style="font-size:0.78rem">tech.e1@dns.com.qa</div></div>
+          <div class="info-item"><div class="info-label">Phone</div><div class="info-value">+974 7788 3208</div></div>
+          <div class="info-item"><div class="info-label">Email</div><div class="info-value" style="font-size:0.78rem">nibinn990@gmail.com</div></div>
           <div class="info-item"><div class="info-label">Status</div><div class="info-value" style="color:#22c55e">● Available</div></div>
         </div>
       </div>
@@ -481,27 +485,48 @@ footer a:hover{color:#fff}
       <h2 class="section-title">Certifications</h2>
       <div class="section-line"></div>
     </div>
-    <div class="edu-grid">
+    <div class="edu-grid" id="certGrid">
 
-      <div class="edu-card clickable" onclick="openCcnpModal()">
+      <div class="edu-card clickable" data-cert-id="ccnp" onclick="openCcnpModal()">
         <div class="edu-icon">📜</div>
         <div class="edu-year">Certification</div>
         <div class="edu-degree">CCNP & CCNA</div>
         <div class="edu-sub">Switching & Routing</div>
         <div class="cert-badge">📄 View Certificate</div>
       </div>
-      <div class="edu-card clickable" onclick="openMcsaModal()">
+      <div class="edu-card clickable" data-cert-id="mcsa" onclick="openMcsaModal()">
         <div class="edu-icon">🏅</div>
         <div class="edu-year">Certification</div>
         <div class="edu-degree">MCSA</div>
         <div class="edu-sub">Microsoft Certified Solutions Associate</div>
         <div class="cert-badge">📄 View Certificate</div>
       </div>
-      <div class="edu-card clickable" onclick="openCertModal()">
+      <div class="edu-card clickable" data-cert-id="sophos" onclick="openCertModal()">
         <div class="edu-icon">🔐</div>
         <div class="edu-year">Dec 2025</div>
         <div class="edu-degree">Sophos Firewall Certified Engineer</div>
         <div class="edu-sub">Version 22.0 (ET80)</div>
+        <div class="cert-badge">📄 View Certificate</div>
+      </div>
+      <div class="edu-card clickable" data-cert-id="paloalto" onclick="openPaloAltoModal()">
+        <div class="edu-icon">🛡️</div>
+        <div class="edu-year">Certification</div>
+        <div class="edu-degree">Palo Alto Networks</div>
+        <div class="edu-sub">Certified Network Security</div>
+        <div class="cert-badge">📄 View Certificate</div>
+      </div>
+      <div class="edu-card clickable" data-cert-id="az140" onclick="openAzModal()">
+        <div class="edu-icon">☁️</div>
+        <div class="edu-year">Certification</div>
+        <div class="edu-degree">Microsoft AZ-140</div>
+        <div class="edu-sub">Azure Virtual Desktop Specialty</div>
+        <div class="cert-badge">📄 View Certificate</div>
+      </div>
+      <div class="edu-card clickable" data-cert-id="fortinet" onclick="openFortinetModal()">
+        <div class="edu-icon">🧱</div>
+        <div class="edu-year">Certification</div>
+        <div class="edu-degree">Fortinet</div>
+        <div class="edu-sub">Network Security Expert</div>
         <div class="cert-badge">📄 View Certificate</div>
       </div>
       <div class="edu-card clickable" onclick="openResumeModal()">
@@ -552,7 +577,7 @@ footer a:hover{color:#fff}
         <div class="sub-grid" id="sub-wlan">
           <div class="sol-card" onclick="openModal('extreme')"><div class="sol-icon">📡</div><div class="sol-name">Extreme Networks</div><div class="sol-sub">WLAN & Switching</div><div class="sol-arrow">View Details →</div></div>
           <div class="sol-card" onclick="openModal('aruba')"><div class="sol-icon">🔵</div><div class="sol-name">Aruba</div><div class="sol-sub">Wireless & Access Points</div><div class="sol-arrow">View Details →</div></div>
-          <div class="sol-card" onclick="openModal('riji')"><div class="sol-icon">📶</div><div class="sol-name">Riji</div><div class="sol-sub">WLAN Solution</div><div class="sol-arrow">View Details →</div></div>
+          <div class="sol-card" onclick="openModal('riji')"><div class="sol-icon">📶</div><div class="sol-name">Ruijie</div><div class="sol-sub">WLAN Solution</div><div class="sol-arrow">View Details →</div></div>
           <div class="sol-card" onclick="openModal('huawei')"><div class="sol-icon">🌐</div><div class="sol-name">Huawei</div><div class="sol-sub">Enterprise WLAN</div><div class="sol-arrow">View Details →</div></div>
         </div>
       </div>
@@ -616,7 +641,7 @@ footer a:hover{color:#fff}
           <div class="sol-card" onclick="openModal('planet_sw')"><div class="sol-icon">🪐</div><div class="sol-name">Planet</div><div class="sol-sub">Managed Switch</div><div class="sol-arrow">View Details →</div></div>
           <div class="sol-card" onclick="openModal('dlink_sw')"><div class="sol-icon">🔗</div><div class="sol-name">D-Link</div><div class="sol-sub">Network Switch</div><div class="sol-arrow">View Details →</div></div>
           <div class="sol-card" onclick="openModal('hp_sw')"><div class="sol-icon">🖥️</div><div class="sol-name">HP</div><div class="sol-sub">ProCurve Switch</div><div class="sol-arrow">View Details →</div></div>
-          <div class="sol-card" onclick="openModal('riji_sw')"><div class="sol-icon">📶</div><div class="sol-name">Riji</div><div class="sol-sub">Network Switch</div><div class="sol-arrow">View Details →</div></div>
+          <div class="sol-card" onclick="openModal('riji_sw')"><div class="sol-icon">📶</div><div class="sol-name">Ruijie</div><div class="sol-sub">Network Switch</div><div class="sol-arrow">View Details →</div></div>
         </div>
       </div>
 
@@ -667,11 +692,11 @@ footer a:hover{color:#fff}
         </div>
         <div class="c-item">
           <div class="c-icon">📞</div>
-          <div><div class="c-label">Phone</div><div class="c-value"><a href="tel:+97470029698">+974 7002 9698</a></div></div>
+          <div><div class="c-label">Phone</div><div class="c-value"><a href="tel:+97477883208">+974 7788 3208</a></div></div>
         </div>
         <div class="c-item">
           <div class="c-icon">✉️</div>
-          <div><div class="c-label">Email</div><div class="c-value"><a href="mailto:tech.e1@dns.com.qa">tech.e1@dns.com.qa</a></div></div>
+          <div><div class="c-label">Email</div><div class="c-value"><a href="mailto:nibinn990@gmail.com">nibinn990@gmail.com</a></div></div>
         </div>
         <div class="c-item">
           <div class="c-icon">💼</div>
@@ -734,7 +759,50 @@ footer a:hover{color:#fff}
       <div style="font-size:3rem;margin-bottom:1rem">📜</div>
       <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--primary);margin-bottom:0.5rem">CCNP & CCNA</div>
       <div style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem">Switching & Routing</div>
-      <div style="background:var(--accent2);border-radius:12px;padding:1.25rem;color:var(--accent);font-size:0.9rem;font-weight:600">🔄 Certificate will be added soon</div>
+      <div id="ccnpCertDisplay"></div>
+      <input type="file" id="ccnpFileInput" accept="image/*" style="display:none" onchange="certFileSelected(event,'ccnp')"/>
+    </div>
+  </div>
+</div>
+
+<!-- PALO ALTO MODAL -->
+<div class="cert-modal-overlay" id="paloAltoModalOverlay" onclick="closePaloAltoModal()">
+  <div class="cert-modal-box" onclick="event.stopPropagation()">
+    <button class="cert-modal-close" onclick="closePaloAltoModal()">✕</button>
+    <div style="padding:2rem 1rem;text-align:center">
+      <div style="font-size:3rem;margin-bottom:1rem">🛡️</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--primary);margin-bottom:0.5rem">Palo Alto Networks</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem">Certified Network Security</div>
+      <div id="paloaltoCertDisplay"></div>
+      <input type="file" id="paloaltoFileInput" accept="image/*" style="display:none" onchange="certFileSelected(event,'paloalto')"/>
+    </div>
+  </div>
+</div>
+
+<!-- AZ-140 MODAL -->
+<div class="cert-modal-overlay" id="azModalOverlay" onclick="closeAzModal()">
+  <div class="cert-modal-box" onclick="event.stopPropagation()">
+    <button class="cert-modal-close" onclick="closeAzModal()">✕</button>
+    <div style="padding:2rem 1rem;text-align:center">
+      <div style="font-size:3rem;margin-bottom:1rem">☁️</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--primary);margin-bottom:0.5rem">Microsoft AZ-140</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem">Azure Virtual Desktop Specialty</div>
+      <div id="az140CertDisplay"></div>
+      <input type="file" id="az140FileInput" accept="image/*" style="display:none" onchange="certFileSelected(event,'az140')"/>
+    </div>
+  </div>
+</div>
+
+<!-- FORTINET MODAL -->
+<div class="cert-modal-overlay" id="fortinetModalOverlay" onclick="closeFortinetModal()">
+  <div class="cert-modal-box" onclick="event.stopPropagation()">
+    <button class="cert-modal-close" onclick="closeFortinetModal()">✕</button>
+    <div style="padding:2rem 1rem;text-align:center">
+      <div style="font-size:3rem;margin-bottom:1rem">🧱</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--primary);margin-bottom:0.5rem">Fortinet</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem">Network Security Expert</div>
+      <div id="fortinetCertDisplay"></div>
+      <input type="file" id="fortinetFileInput" accept="image/*" style="display:none" onchange="certFileSelected(event,'fortinet')"/>
     </div>
   </div>
 </div>
@@ -747,7 +815,8 @@ footer a:hover{color:#fff}
       <div style="font-size:3rem;margin-bottom:1rem">🏅</div>
       <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--primary);margin-bottom:0.5rem">MCSA</div>
       <div style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem">Microsoft Certified Solutions Associate</div>
-      <div style="background:var(--accent2);border-radius:12px;padding:1.25rem;color:var(--accent);font-size:0.9rem;font-weight:600">🔄 Certificate will be added soon</div>
+      <div id="mcsaCertDisplay"></div>
+      <input type="file" id="mcsaFileInput" accept="image/*" style="display:none" onchange="certFileSelected(event,'mcsa')"/>
     </div>
   </div>
 </div>
@@ -780,7 +849,7 @@ footer a:hover{color:#fff}
 <!-- FOOTER -->
 <footer>
   <p>© 2025 Muhammad Nibin Nishad &nbsp;·&nbsp; Assistant Network Engineer &nbsp;·&nbsp; Doha, Qatar</p>
-  <p style="margin-top:0.5rem"><a href="mailto:tech.e1@dns.com.qa">tech.e1@dns.com.qa</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/nibin-nishad-139833263" target="_blank">LinkedIn</a></p>
+  <p style="margin-top:0.5rem"><a href="mailto:nibinn990@gmail.com">nibinn990@gmail.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/nibin-nishad-139833263" target="_blank">LinkedIn</a></p>
 </footer>
 
 <script>
@@ -880,7 +949,7 @@ const solutions = {
     details: ['Details coming soon — check back later.']
   },
   riji: {
-    icon: '📶', title: 'Riji', sub: 'WLAN Solution',
+    icon: '📶', title: 'Ruijie', sub: 'WLAN Solution',
     details: ['Details coming soon — check back later.']
   },
   huawei: {
@@ -914,7 +983,7 @@ const solutions = {
   planet_sw:  { icon: '🪐', title: 'Planet', sub: 'Managed Switch', details: ['Details coming soon — check back later.'] },
   dlink_sw:   { icon: '🔗', title: 'D-Link', sub: 'Network Switch', details: ['Details coming soon — check back later.'] },
   hp_sw:      { icon: '🖥️', title: 'HP', sub: 'ProCurve Switch', details: ['Details coming soon — check back later.'] },
-  riji_sw:    { icon: '📶', title: 'Riji', sub: 'Network Switch', details: ['Details coming soon — check back later.'] },
+  riji_sw:    { icon: '📶', title: 'Ruijie', sub: 'Network Switch', details: ['Details coming soon — check back later.'] },
   hp_srv:     { icon: '💻', title: 'HP Server', sub: 'ProLiant Infrastructure', details: ['Details coming soon — check back later.'] },
   dell_srv:   { icon: '🖥️', title: 'Dell Server', sub: 'PowerEdge Infrastructure', details: ['Details coming soon — check back later.'] }
 };
@@ -986,6 +1055,33 @@ function closeMcsaModal(){
   document.body.style.overflow='';
 }
 
+function openPaloAltoModal(){
+  document.getElementById('paloAltoModalOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closePaloAltoModal(){
+  document.getElementById('paloAltoModalOverlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+
+function openAzModal(){
+  document.getElementById('azModalOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeAzModal(){
+  document.getElementById('azModalOverlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+
+function openFortinetModal(){
+  document.getElementById('fortinetModalOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeFortinetModal(){
+  document.getElementById('fortinetModalOverlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+
 // PASSWORD GATE
 var _pendingAction = null;
 
@@ -1046,6 +1142,67 @@ openCcnpModal = function() { requirePassword(_originalOpenCcnp); };
 // Override MCSA modal to go through password gate
 var _originalOpenMcsa = openMcsaModal;
 openMcsaModal = function() { requirePassword(_originalOpenMcsa); };
+
+// Override Palo Alto modal to go through password gate
+var _originalOpenPaloAlto = openPaloAltoModal;
+openPaloAltoModal = function() { requirePassword(_originalOpenPaloAlto); };
+
+// Override AZ-140 modal to go through password gate
+var _originalOpenAz = openAzModal;
+openAzModal = function() { requirePassword(_originalOpenAz); };
+
+// Override Fortinet modal to go through password gate
+var _originalOpenFortinet = openFortinetModal;
+openFortinetModal = function() { requirePassword(_originalOpenFortinet); };
+
+// ===== IN-MODAL CERTIFICATE IMAGE UPLOAD =====
+var CERT_KEYS = ['ccnp', 'mcsa', 'paloalto', 'az140', 'fortinet'];
+var CERT_IMG_PREFIX = 'nn_cert_img_';
+
+function certFileSelected(event, key) {
+  var file = event.target.files[0];
+  if (!file) return;
+  if (!file.type.startsWith('image/')) { alert('Please choose an image file.'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      localStorage.setItem(CERT_IMG_PREFIX + key, e.target.result);
+    } catch (err) {
+      alert('Image too large to save. Try a smaller file.');
+      return;
+    }
+    renderCertDisplay(key);
+  };
+  reader.readAsDataURL(file);
+  event.target.value = '';
+}
+
+function removeCertImage(key) {
+  if (!confirm('Remove this certificate image?')) return;
+  localStorage.removeItem(CERT_IMG_PREFIX + key);
+  renderCertDisplay(key);
+}
+
+function renderCertDisplay(key) {
+  var display = document.getElementById(key + 'CertDisplay');
+  if (!display) return;
+  var data = localStorage.getItem(CERT_IMG_PREFIX + key);
+  if (data) {
+    display.innerHTML =
+      '<img src="' + data + '" alt="Certificate" style="max-width:100%;border-radius:12px;box-shadow:var(--shadow);margin-bottom:1.25rem"/>' +
+      '<div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">' +
+        '<button class="cert-upload-btn" onclick="document.getElementById(\'' + key + 'FileInput\').click()">🔄 Replace</button>' +
+        '<button class="cert-remove-btn" onclick="removeCertImage(\'' + key + '\')">🗑 Remove</button>' +
+      '</div>';
+  } else {
+    display.innerHTML =
+      '<div style="background:var(--accent2);border-radius:12px;padding:1.25rem;color:var(--accent);font-size:0.9rem;font-weight:600;margin-bottom:1.25rem">🔄 Certificate not added yet</div>' +
+      '<button class="cert-upload-btn" onclick="document.getElementById(\'' + key + 'FileInput\').click()">➕ Add Certificate</button>';
+  }
+}
+
+CERT_KEYS.forEach(renderCertDisplay);
+
 
 </script>
 </body>
